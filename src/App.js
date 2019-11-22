@@ -3,24 +3,26 @@ import {connect} from 'react-redux';
 
 class App extends Component {
   render(){
-    const {posts}= this.props;
-    console.log("aikol", posts);
-    const theme = posts.map(post=>(
-      <div key = {post.id}>{post.title}</div>
-    ))
+    const {ctr}= this.props;
     return (
       <div className="App">
-        {theme}
+        <button onClick = {this.props.onIncrementCounter}>increment</button>
+        <button onClick = {this.props.onDecrementCounter}>decrement</button>
+        {ctr}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state)=>{//state is the reducers
-  console.log("ok", state)
+const mapStateToProps = state => {
+  return { ctr: state.counter }; //state is the reducers
+}
+
+const mapDispatchToProps = dispatch =>{
   return {
-    posts: state
+    onIncrementCounter: ()=> dispatch({type: "INCREMENT"}),
+    onDecrementCounter: ()=> dispatch({type: "DECREMENT"})
   }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

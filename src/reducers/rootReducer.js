@@ -1,16 +1,16 @@
 const initState = {
-    posts:[
-        {id: 1, title:"Hello there"},
-        {id: 2, title:"Zdrasti"},
-        {id: 3, title:"Hola"},
-    ]
+    counter:0
 }
 const rootReducer = (state=initState, action)=>{
-    // if(action.type){
-    //     return state.posts
-    // }
-    console.log("root", state.posts);
-    return state.posts;
+    if(action.type === "INCREMENT"){
+        return{ counter: state.counter += 1}
+    }
+    if(action.type === "DECREMENT"){
+        if(state.counter > 0 ){
+            return{ counter: state.counter -= 1}
+        }
+    }
+    return state;
 }
 
 export default rootReducer;
